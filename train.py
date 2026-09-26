@@ -9,6 +9,7 @@ from torchmetrics.classification import MulticlassAccuracy
 
 from data import test_loader, train_loader, validation_loader
 from model import FashionMNISTClassifier
+from plot import plot_accuracy
 
 
 LEARNING_RATE = 0.1
@@ -95,6 +96,7 @@ def train_model() -> tuple[FashionMNISTClassifier, dict[str, object]]:
     torch.save(model.state_dict(), MODEL_PATH)
     with HISTORY_PATH.open("w", encoding="utf-8") as history_file:
         json.dump(history, history_file, indent=2)
+    plot_accuracy(HISTORY_PATH)
 
     return model, history
 
