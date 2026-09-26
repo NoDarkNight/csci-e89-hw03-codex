@@ -50,4 +50,9 @@ def plot_accuracy(
 
 
 if __name__ == "__main__":
-    plot_accuracy()
+    # In a notebook this cell runs before training (train.py calls
+    # plot_accuracy), so only regenerate the chart once a history exists.
+    if HISTORY_PATH.exists():
+        plot_accuracy()
+    else:
+        print(f"{HISTORY_PATH} not found; run train.py to create it and plot.")

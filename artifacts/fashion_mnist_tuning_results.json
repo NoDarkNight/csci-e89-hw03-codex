@@ -1,0 +1,113 @@
+{
+  "best_parameters": {
+    "learning_rate": 0.002537815508265664,
+    "hidden_layer_one": 384,
+    "hidden_layer_two": 32,
+    "momentum": 0.9214143595538946
+  },
+  "best_validation_accuracy": 0.873,
+  "baseline_test_accuracy": 0.8905999660491943,
+  "tuned_test_accuracy": 0.8889,
+  "trials": [
+    {
+      "number": 0,
+      "parameters": {
+        "learning_rate": 0.00031489116479568613,
+        "hidden_layer_one": 512,
+        "hidden_layer_two": 192,
+        "momentum": 0.5687255599871848
+      },
+      "value": 0.7798
+    },
+    {
+      "number": 1,
+      "parameters": {
+        "learning_rate": 4.207988669606632e-05,
+        "hidden_layer_one": 128,
+        "hidden_layer_two": 32,
+        "momentum": 0.8228673384861884
+      },
+      "value": 0.6566
+    },
+    {
+      "number": 2,
+      "parameters": {
+        "learning_rate": 0.002537815508265664,
+        "hidden_layer_one": 384,
+        "hidden_layer_two": 32,
+        "momentum": 0.9214143595538946
+      },
+      "value": 0.873
+    },
+    {
+      "number": 3,
+      "parameters": {
+        "learning_rate": 0.021368329072358756,
+        "hidden_layer_one": 128,
+        "hidden_layer_two": 64,
+        "momentum": 0.17423428436076213
+      },
+      "value": 0.8648
+    },
+    {
+      "number": 4,
+      "parameters": {
+        "learning_rate": 0.00016480446427978953,
+        "hidden_layer_one": 320,
+        "hidden_layer_two": 128,
+        "momentum": 0.2766676831881398
+      },
+      "value": 0.6964
+    },
+    {
+      "number": 5,
+      "parameters": {
+        "learning_rate": 0.0028016351587162596,
+        "hidden_layer_one": 128,
+        "hidden_layer_two": 96,
+        "momentum": 0.3480437511290071
+      },
+      "value": 0.8466
+    },
+    {
+      "number": 6,
+      "parameters": {
+        "learning_rate": 0.0006672367170464204,
+        "hidden_layer_one": 448,
+        "hidden_layer_two": 64,
+        "momentum": 0.488522716492931
+      },
+      "value": 0.8094
+    },
+    {
+      "number": 7,
+      "parameters": {
+        "learning_rate": 0.00234238498471129,
+        "hidden_layer_one": 64,
+        "hidden_layer_two": 160,
+        "momentum": 0.16199791750292694
+      },
+      "value": 0.8298
+    },
+    {
+      "number": 8,
+      "parameters": {
+        "learning_rate": 1.8205657658407255e-05,
+        "hidden_layer_one": 512,
+        "hidden_layer_two": 256,
+        "momentum": 0.7679774807106381
+      },
+      "value": 0.6044
+    },
+    {
+      "number": 9,
+      "parameters": {
+        "learning_rate": 0.00016536937182824412,
+        "hidden_layer_one": 64,
+        "hidden_layer_two": 192,
+        "momentum": 0.4181448690526212
+      },
+      "value": 0.7128
+    }
+  ]
+}

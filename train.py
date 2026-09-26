@@ -7,9 +7,14 @@ import torch
 from torch import nn, optim
 from torchmetrics.classification import MulticlassAccuracy
 
-from data import test_loader, train_loader, validation_loader
-from model import FashionMNISTClassifier
-from plot import plot_accuracy
+# When pasted into a notebook, earlier cells already define these names, so the
+# sibling modules are only imported when this file is run as a script.
+if "train_loader" not in globals():
+    from data import test_loader, train_loader, validation_loader
+if "FashionMNISTClassifier" not in globals():
+    from model import FashionMNISTClassifier
+if "plot_accuracy" not in globals():
+    from plot import plot_accuracy
 
 
 LEARNING_RATE = 0.1

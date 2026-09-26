@@ -8,8 +8,12 @@ from pathlib import Path
 
 import torch
 
-from data import validation_dataset
-from model import FashionMNISTClassifier
+# When pasted into a notebook, earlier cells already define these names, so the
+# sibling modules are only imported when this file is run as a script.
+if "validation_dataset" not in globals():
+    from data import validation_dataset
+if "FashionMNISTClassifier" not in globals():
+    from model import FashionMNISTClassifier
 
 
 MODEL_PATH = Path("artifacts") / "fashion_mnist_mlp.pt"

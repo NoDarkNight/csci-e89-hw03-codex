@@ -11,21 +11,26 @@ import optuna
 import torch
 from torch import nn, optim
 
-from data import test_loader, train_loader, validation_loader
-from model import FashionMNISTClassifier
+# When pasted into a notebook, earlier cells already define these names, so the
+# sibling modules are only imported when this file is run as a script.
+if "train_loader" not in globals():
+    from data import test_loader, train_loader, validation_loader
+if "FashionMNISTClassifier" not in globals():
+    from model import FashionMNISTClassifier
 
 
 OUTPUT_DIR = Path("artifacts")
 BASELINE_HISTORY_PATH = OUTPUT_DIR / "fashion_mnist_history.json"
 TUNING_RESULTS_PATH = OUTPUT_DIR / "fashion_mnist_tuning_results.json"
 NUM_TRIALS = 10
+TUNING_SEED = 42
 TUNING_EPOCHS = 5
 RETRAINING_EPOCHS = 20
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
-def evaluate_accuracy(model: nn.Module, loader: torch.utils.data.DataLoader) -> float:
+def evaluate_trial_accuracy(model: nn.Module, loader: torch.utils.data.DataLoader) -> float:
     """Return the fraction of correctly predicted examples in ``loader``."""
     model.eval()
     correct_predictions = 0
@@ -82,7 +87,7 @@ def objective(trial: optuna.Trial) -> float:
     for _ in range(TUNING_EPOCHS):
         train_for_one_epoch(model, optimizer, loss_function)
 
-    return evaluate_accuracy(model, validation_loader)
+    return evaluate_trial_accuracy(model, validation_loader)
 
 
 def print_trial_table(study: optuna.Study) -> None:
@@ -119,16 +124,22 @@ def retrain_best_configuration(parameters: dict[str, float | int]) -> float:
 
     for epoch in range(1, RETRAINING_EPOCHS + 1):
         train_for_one_epoch(model, optimizer, loss_function)
-        validation_accuracy = evaluate_accuracy(model, validation_loader)
-        print(f"Retraining epoch {epoch:02d}/{RETRAINING_EPOCHS}: validation accuracy={validation_accuracy:.4f}")
+        validation_accuracy = evaluate_trial_accuracy(model, validation_loader)
+        print(
+            f"Retraining epoch {epoch:02d}/{RETRAINING_EPOCHS}: "
+            f"validation accuracy={validation_accuracy:.4f}"
+        )
 
-    return evaluate_accuracy(model, test_loader)
+    return evaluate_trial_accuracy(model, test_loader)
 
 
 def run_tuning() -> None:
     """Tune, summarize, retrain, and compare the best configuration."""
     baseline_accuracy = load_baseline_accuracy()
-    study = optuna.create_study(direction="maximize")
+    study = optuna.create_study(
+        direction="maximize",
+        sampler=optuna.samplers.TPESampler(seed=TUNING_SEED),
+    )
     study.optimize(objective, n_trials=NUM_TRIALS)
 
     print_trial_table(study)
